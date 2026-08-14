@@ -1,37 +1,63 @@
-🐍 Projetos Educacionais em Python - Finanças, História e Utilidades
-Este repositório contém uma coleção de aplicações gráficas desenvolvidas em Python utilizando tkinter. Os projetos foram elaborados com foco didático para alunos do programa Jovem Aprendiz, integrando conceitos de programação procedural, educação financeira, história do Brasil e utilidades do cotidiano.
+🐾 Módulo 2 — Cadastro PetsZ
 
-🎯 Objetivos Didáticos
-Lógica Procedural: Estruturação de código sem o uso de Orientação a Objetos (POO), facilitando a assimilação inicial de funções, parâmetros e escopo global.
+Este README apresenta a documentação do projeto Cadastro PetsZ, desenvolvido como atividade do Módulo 2 do repositório "código-da-transformacao-python-EAD_Yasmin_santos".
 
-Interface Gráfica (GUI): Construção de telas interativas com tkinter e componentes básicos.
+O projeto foi desenvolvido em Python, utilizando Tkinter para criar uma interface gráfica de cadastro de pets.
 
-Tratamento de Exceções: Uso de blocos try/except para validação e carregamento de recursos externos.
+💡 Sobre o Projeto
 
-Consumo de Requisições HTTP: Integração com a web para exibição dinâmica de imagens (biblioteca Pillow).
+O projeto Cadastro PetsZ permite inserir informações básicas de um pet através de uma interface gráfica.
 
-🚀 Projetos Incluídos
-1. 🐾 Cadastro de Pets (petsz_cadastro.py)
-Uma aplicação simples e intuitiva para o gerenciamento básico de informações de animais de estimação.
+O sistema solicita:
 
-Destaques:
+- 🐶 Nome do Pet
+- 🎂 Idade do Pet
+- 📏 Porte do Pet
 
-Interface moderna com controle de cores (modo dark).
+Após o preenchimento, o programa verifica se os campos foram informados e exibe uma mensagem de sucesso.
 
-Validação de campos obrigatórios (messagebox).
+🚀 Funcionalidades Principais
 
-Exibição de logotipos dinâmicos via URL.
+- 📝 Cadastro de informações do pet.
+- ✅ Validação dos campos obrigatórios.
+- ⚠️ Avisos para campos não preenchidos.
+- 🖼️ Exibição de imagem na interface.
+- 🎨 Interface gráfica desenvolvida com Tkinter.
+- ✨ Mensagem de confirmação após o cadastro.
 
-Foco na usabilidade do usuário (focus() e Entry).
+📄 Estrutura da Pasta
 
-2. 📜 Linha do Tempo: Eufrásia Teixeira Leite
-Uma interface interativa sobre Eufrásia Teixeira Leite (1850–1930), a primeira investidora global do Brasil.
+Arquivo| Descrição
+"cadastro_petz_yasmin.py"| Código principal do projeto de cadastro de pets.
+"README.md"| Documentação do projeto do Módulo 2.
 
-3. 💵 Simulador de Aportes
-Uma calculadora de fluxo de caixa simplificada para ensinar operações de depósito e saque, com controle de saldo e validação de limites.
+🛠️ Tecnologias Utilizadas
 
-4. 📊 Dashboard Financeiro - Padrão B3
-Um painel completo simulando o ambiente da Bolsa de Valores brasileira (B3) com uso de abas (ttk.Notebook) e histórico em Listbox.
+- Python 3.x: Linguagem utilizada no desenvolvimento.
+- Tkinter: Criação da interface gráfica.
+- Pillow: Manipulação e exibição da imagem.
+- urllib: Carregamento da imagem através da internet.
+- io: Manipulação dos dados da imagem em memória.
 
-🛠️ Pré-requisitos e Instalação
-Para executar os projetos, você precisará do Python 3.10+ instalado em sua máquina.
+🚀 Como Começar
+
+Pré-requisitos
+
+- Ter o Python 3.x instalado.
+- Ter conexão com a internet para carregar a imagem utilizada no projeto.
+
+Instalação
+
+Instale a biblioteca Pillow:
+
+pip install Pillow
+
+Execução
+
+Acesse a pasta Módulo 2 e execute:
+
+python cadastro_petz_yasmin.py
+
+🎯 Objetivo
+
+Este projeto foi desenvolvido como atividade do Módulo 2, com o objetivo de praticar Python, lógica de programação, validação de dados e criação de interfaces gráficas utilizando Tkinter.
