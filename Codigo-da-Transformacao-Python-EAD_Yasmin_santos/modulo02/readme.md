@@ -6,7 +6,7 @@ O projeto foi desenvolvido em Python, utilizando Tkinter para criar uma interfac
 
 💡 Sobre o Projeto
 
-O projeto Cadastro PetsZ permite inserir informações básicas de um pet através de uma interface gráfica.
+O Cadastro PetsZ permite inserir informações básicas de um pet por meio de uma interface gráfica.
 
 O sistema solicita:
 
@@ -14,7 +14,7 @@ O sistema solicita:
 - 🎂 Idade do Pet
 - 📏 Porte do Pet
 
-Após o preenchimento, o programa verifica se os campos foram informados e exibe uma mensagem de sucesso.
+Após o preenchimento, o programa verifica se os campos obrigatórios foram informados e exibe uma mensagem de confirmação após o cadastro.
 
 🚀 Funcionalidades Principais
 
@@ -33,31 +33,44 @@ Arquivo| Descrição
 
 🛠️ Tecnologias Utilizadas
 
-- Python 3.x: Linguagem utilizada no desenvolvimento.
-- Tkinter: Criação da interface gráfica.
-- Pillow: Manipulação e exibição da imagem.
-- urllib: Carregamento da imagem através da internet.
-- io: Manipulação dos dados da imagem em memória.
+- Python 3.x — linguagem utilizada no desenvolvimento.
+- Tkinter — criação da interface gráfica.
+- Pillow — manipulação e exibição da imagem.
+- urllib — carregamento da imagem através da internet.
+- io — manipulação dos dados da imagem em memória.
 
 🚀 Como Começar
 
 Pré-requisitos
 
-- Ter o Python 3.x instalado.
-- Ter conexão com a internet para carregar a imagem utilizada no projeto.
+Para executar o projeto, é necessário ter:
 
-Instalação
+- Python 3.x instalado no computador.
+- Conexão com a internet para carregar a imagem utilizada no projeto.
 
-Instale a biblioteca Pillow:
+📦 Instalação
+
+Instale a biblioteca Pillow pelo terminal:
 
 pip install Pillow
 
-Execução
+▶️ Execução
 
-Acesse a pasta Módulo 2 e execute:
+Acesse a pasta Módulo 2 pelo terminal e execute:
 
 python cadastro_petz_yasmin.py
 
 🎯 Objetivo
 
-Este projeto foi desenvolvido como atividade do Módulo 2, com o objetivo de praticar Python, lógica de programação, validação de dados e criação de interfaces gráficas utilizando Tkinter.
+Este projeto foi desenvolvido como atividade do Módulo 2, com o objetivo de praticar:
+
+- 🐍 Python;
+- 🧠 Lógica de programação;
+- ✅ Validação de dados;
+- 🖥️ Criação de interfaces gráficas utilizando Tkinter.
+
+👩‍💻 Autora
+
+Yasmin Santos
+
+Projeto desenvolvido durante os estudos de programação.
