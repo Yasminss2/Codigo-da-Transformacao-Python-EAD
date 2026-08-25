@@ -46,7 +46,7 @@ def resto_divisao(a, b):
       return "Erro: Divisão por zero não é permitida"
     return a % b
 
-def portencia(base, expoente):
+def potencia(base, expoente):
     return base ** expoente
 
 
