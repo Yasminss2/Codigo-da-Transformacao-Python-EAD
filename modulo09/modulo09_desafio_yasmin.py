@@ -1,93 +1,83 @@
 # ==========================================
 # 1. EXCEÇÕES PERSONALIZADAS (Camada de Domínio)
 # ==========================================
-class CredenciaisInvalidasError(Exception):
-    """Exceção para usuário ou senha incorretos."""
+class SaldoInsuficienteError(Exception):
+    """Lançada quando a conta não possui saldo suficiente para o saque."""
     pass
 
-class LimiteTentativasExcedidoError(Exception):
-    """Exceção para quando o usuário excede o número máximo de tentativas."""
+
+class LimiteDiarioExcedidoError(Exception):
+    """Lançada quando o valor ultrapassa o limite diário permitido."""
     pass
 
 
 # ==========================================
-# 2. SERVIÇO DE AUTENTICAÇÃO (Camada de Serviço)
+# 2. REGRA DE NEGÓCIO (Camada de Serviço)
 # ==========================================
-class AuthService:
-    def __init__(self, usuario_valido="admin", senha_valida="admin123", max_tentativas=3):
-        """
-        Inicializa o serviço com credenciais padrão e limite de tentativas.
-        """
-        self._usuario_valido = usuario_valido
-        self._senha_valida = senha_valida
-        self.max_tentativas = max_tentativas
-        self.tentativas_atuais = 0
+class ContaBancaria:
+    def __init__(self, titular: str, saldo_inicial: float, limite_diario: float = 1000.0):
+        self.titular = titular
+        self._saldo = saldo_inicial
+        self.limite_diario = limite_diario
+        self._total_sacado_hoje = 0.0
 
-    def autenticar(self, usuario, senha):
-        """
-        Valida as credenciais fornecidas.
-        
-        Lança:
-        - LimiteTentativasExcedidoError: Se o limite de falhas já foi atingido.
-        - CredenciaisInvalidasError: Se usuário ou senha estiverem incorretos.
-        """
-        # Verifica se o limite de tentativas já foi atingido
-        if self.tentativas_atuais >= self.max_tentativas:
-            raise LimiteTentativasExcedidoError("Conta bloqueada temporariamente por segurança.")
+    @property
+    def saldo(self) -> float:
+        return self._saldo
 
-        # Valida usuário e senha
-        if usuario != self._usuario_valido or senha != self._senha_valida:
-            self.tentativas_atuais += 1
-            tentativas_restantes = self.max_tentativas - self.tentativas_atuais
-            
-            if self.tentativas_atuais >= self.max_tentativas:
-                raise LimiteTentativasExcedidoError("Acesso bloqueado! Limite máximo de tentativas atingido.")
-            
-            raise CredenciaisInvalidasError(
-                f"Credenciais incorretas. Tentativas restantes: {tentativas_restantes}"
+    def realizar_saque(self, valor: float) -> float:
+        if valor <= 0:
+            raise ValueError("O valor do saque deve ser maior que zero.")
+
+        if valor > self._saldo:
+            raise SaldoInsuficienteError(
+                f"Saldo insuficiente. Saldo atual disponível: R$ {self._saldo:.2f}"
             )
 
-        # Se as credenciais estiverem corretas, reseta o contador
-        self.tentativas_atuais = 0
-        return True
+        if (self._total_sacado_hoje + valor) > self.limite_diario:
+            disponivel_hoje = self.limite_diario - self._total_sacado_hoje
+            raise LimiteDiarioExcedidoError(
+                f"Limite diário excedido. Valor máximo ainda disponível hoje: R$ {disponivel_hoje:.2f}"
+            )
+
+        self._saldo -= valor
+        self._total_sacado_hoje += valor
+        return self._saldo
 
 
 # ==========================================
 # 3. INTERFACE DE TERMINAL (Camada de Aplicação)
 # ==========================================
-def executar_interface_login():
-    """
-    Controla o fluxo de telas no terminal para interação com o usuário.
-    """
-    auth_system = AuthService(usuario_valido="dev_user", senha_valida="pass123", max_tentativas=3)
-    
-    print("==========================================")
-    print("      SISTEMA DE AUTENTICAÇÃO - DEV       ")
-    print("==========================================")
-    
+def menu_terminal():
+    conta = ContaBancaria(titular="Yasmin Santos", saldo_inicial=500.0, limite_diario=300.0)
+
+    print(f"=== BANCO YASMIN - Bem-vindo(a), {conta.titular} ===")
+
     while True:
-        try:
-            usr = input("\n[LOGIN] Usuário: ")
-            pwd = input("[LOGIN] Senha:   ")
-            
-            # Tenta autenticar no serviço
-            if auth_system.autenticar(usr, pwd):
-                print("\n[OK] Autenticação bem-sucedida! Acessando o painel...")
-                break
-                
-        except CredenciaisInvalidasError as e:
-            # Captura falha de senha/usuário
-            print(f"[ERRO] {e}")
-            
-        except LimiteTentativasExcedidoError as e:
-            # Captura o bloqueio do sistema
-            print(f"\n[BLOQUEADO] {e}")
-            print("Encerrando a sessão...")
+        print(f"\nSaldo disponível: R$ {conta.saldo:.2f}")
+        opcao = input("Deseja realizar um saque? (s/n): ").strip().lower()
+
+        if opcao != 's':
+            print("\nOperação finalizada. Volte sempre!")
             break
+
+        try:
+            valor_input = float(input("Digite o valor do saque: R$ "))
+            novo_saldo = conta.realizar_saque(valor_input)
+            print(f"[SUCESSO] Saque efetuado! Novo saldo: R$ {novo_saldo:.2f}")
+
+        except ValueError as err:
+            print(f"[ERRO DE ENTRADA] {err}")
+
+        except SaldoInsuficienteError as err:
+            print(f"[FALHA NO SAQUE] {err}")
+
+        except LimiteDiarioExcedidoError as err:
+            print(f"[BLOQUEIO DE LIMITE] {err}")
 
 
 # ==========================================
 # EXECUÇÃO DO SISTEMA
 # ==========================================
 if __name__ == "__main__":
-    executar_interface_login()
+    menu_terminal()
